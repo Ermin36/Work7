@@ -28,7 +28,11 @@ SECRET_KEY = os.getenv('DJANGO_SECRET')
 DEBUG = True
 
 ALLOWED_HOSTS = []
+AUTH_USER_MODEL = 'users.User'
 
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Application definition
 

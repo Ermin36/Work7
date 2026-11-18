@@ -12,4 +12,3 @@ class CourseAdmin(admin.ModelAdmin):
 class LessonAdmin(admin.ModelAdmin):
     list_display = ('title', 'video_url')
     list_filter = ('courses',)
-    filter_horizontal = ('courses',)

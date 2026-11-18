@@ -30,8 +30,9 @@ class Lesson(models.Model):
         max_length=500,
         verbose_name='Ссылка на видео',
     )
-    courses = models.ManyToManyField(
+    courses = models.ForeignKey(
         Course,
+        on_delete=models.CASCADE,
         related_name='lessons',
         verbose_name='Курсы',
         blank=True,

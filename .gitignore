@@ -11,3 +11,5 @@ htmlcov/.gitattributes
 __pycache__/
 .htmlcov/
 .run/
+.postman/
+postman/

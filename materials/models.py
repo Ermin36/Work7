@@ -36,6 +36,7 @@ class Lesson(models.Model):
         related_name='lessons',
         verbose_name='Курсы',
         blank=True,
+        null=True,
     )
 
     def __str__(self):

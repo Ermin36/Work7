@@ -1,6 +1,9 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 
+from materials.models import Lesson, Course
+
+
 # Create your models here.
 class UserManager(BaseUserManager):
 
@@ -48,3 +51,33 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+
+
+class Payments(models.Model):
+    user = models.ForeignKey(User, on_delete=models.PROTECT, related_name='payments', verbose_name='Пользователь')
+    date_payment = models.DateField(auto_now_add=True, verbose_name='Дата платежа')
+    lesson = models.ForeignKey(Lesson,
+        on_delete=models.PROTECT,
+        related_name='payments',
+        verbose_name='Уроки',
+        blank=True,
+        null=True,)
+    course = models.ForeignKey(Course,
+        on_delete=models.PROTECT,
+        related_name='payments',
+        verbose_name='Курсы',
+        blank=True,
+        null=True,)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма платежа')
+    METHOD_CHOICES = (
+        ('cash', 'Наличный'),
+        ('transfer', 'Перевод на счёт')
+    )
+    payment_method = models.CharField(choices=METHOD_CHOICES, max_length=10, verbose_name='Тип платежа')
+
+    def __str__(self):
+        return f'{self.user.email} ({self.date_payment}): {self.amount}'
+
+    class Meta:
+        verbose_name = 'Платёж'
+        verbose_name_plural = 'Платежи'

@@ -1,8 +1,6 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 
-from materials.models import Lesson, Course
-
 
 # Create your models here.
 class UserManager(BaseUserManager):
@@ -56,13 +54,13 @@ class User(AbstractUser):
 class Payments(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT, related_name='payments', verbose_name='Пользователь')
     date_payment = models.DateField(auto_now_add=True, verbose_name='Дата платежа')
-    lesson = models.ForeignKey(Lesson,
+    lesson = models.ForeignKey('materials.Lesson',
         on_delete=models.PROTECT,
         related_name='payments',
         verbose_name='Уроки',
         blank=True,
         null=True,)
-    course = models.ForeignKey(Course,
+    course = models.ForeignKey('materials.Course',
         on_delete=models.PROTECT,
         related_name='payments',
         verbose_name='Курсы',

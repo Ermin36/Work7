@@ -1,6 +1,6 @@
-from rest_framework import generics, filters
+from rest_framework import generics, filters, permissions
 
-from .models import Payments
+from .models import Payments, User
 from .serializers import PaymentSerializer, UserSerializer
 
 # Create your views here.
@@ -32,3 +32,8 @@ class UserView(generics.RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
+
+class UserCreateAPIView(generics.CreateAPIView):
+    permission_classes = [permissions.AllowAny]
+    serializer_class = UserSerializer
+    queryset = User.objects.all()

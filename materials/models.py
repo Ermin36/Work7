@@ -1,11 +1,19 @@
 from django.db import models
 
+from config import settings
+
+
 # Create your models here.
 class Course(models.Model):
 
     title = models.CharField(max_length=100, verbose_name='Название')
     image = models.ImageField(default='default.jpeg', upload_to='courses/%Y/%m', verbose_name='Превью')
     description = models.TextField(verbose_name='Описание')
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='courses',
+        verbose_name='Автор')
 
     def __str__(self):
         return self.title
@@ -20,6 +28,11 @@ class Lesson(models.Model):
 
     title = models.CharField(max_length=100)
     description = models.TextField(verbose_name='Описание')
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='lessons',
+        verbose_name="Автор")
     preview = models.ImageField(
         upload_to='lessons/previews/',
         blank=True,
